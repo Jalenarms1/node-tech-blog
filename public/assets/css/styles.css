@@ -1,0 +1,29 @@
+/* place styles here */
+*{
+    margin:0;
+    padding: 0;;
+}
+
+.rem-bullets{
+    list-style: none;
+}
+
+.stretch{
+    width: 60%;
+    margin:0 auto;
+    
+}
+.login-page{
+    width: 45%;
+    margin: 0 auto;
+}
+
+.comment-box{
+    width: 50%;
+    padding:4px;
+
+}
+
+.cust-btn{
+    width: 25%;
+}
