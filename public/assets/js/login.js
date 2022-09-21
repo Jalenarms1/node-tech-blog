@@ -1,25 +1,69 @@
-var username = $("#new-username-input");
-var email = $("#new-email-input");
-var password = $("#new-password-input")
-var submitBtn = $("#signup-btn");
+var username = document.querySelector("#new-username-input");
+var email = document.querySelector("#new-email-input");
+var password = document.querySelector("#new-password-input")
+var submitBtn = document.querySelector("#signup-btn");
+var loginBtn = document.querySelector("#login");
+var checkUsername = document.querySelector("#cur-user-input");
+var checkPassword = document.querySelector("#cur-password-input");
+var logout = document.querySelector("#logout");
 
-const createNewUser = (e) => {
+
+
+const createNewUser = async (e) => {
     e.preventDefault();
-    let body = {
-        username: username.val(),
-        email: email.val(),
-        password: password.val()
+    let userBody = {
+        username: username.value,
+        email: email.value,
+        password: password.value
     }
 
-    $.ajax({
-        url: '/users/new',
+    const response = await fetch("/users/new", {
         method: 'POST',
-        dataType: "application/json",
-        data: body
-
-    }).then(response => {
-        console.log(response)
+        body: JSON.stringify(userBody),
+        headers: { "Content-type": "application/json"}
     })
+
+    if(response.ok){
+        document.location.replace("/blogs")
+
+    }
 }
 
-submitBtn.on("click", createNewUser);
+const loginPost = async (event) => {
+    event.preventDefault();
+
+    const response = await fetch("/users/login", {
+        method: 'POST',
+        body: JSON.stringify({
+            username: checkUsername.value,
+            password: checkPassword.value
+        }),
+        headers: { "Content-Type": 'application/json'}
+    })
+
+    if(response.ok){
+        document.location.replace("/blogs")
+    }
+}
+
+const loggedOut = async () => {
+    let response = await fetch("/users/logout", {
+        method: 'POST',
+        headers: { "Content-Type": 'application/json'}
+
+    })
+
+    if(response.ok){
+        window.location.replace("/blogs")
+    }
+}
+
+if(submitBtn){
+    submitBtn.addEventListener("click", createNewUser);
+}
+if(loginBtn){
+    loginBtn.addEventListener("click", loginPost);
+}
+if(logout){
+    logout.addEventListener("click", loggedOut)
+}

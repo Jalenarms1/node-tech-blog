@@ -18,27 +18,31 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/blogs">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Dashboard</a>
             </li>
-            {{!-- {{#if isLoggedIn}} --}}
-            <li class="nav-item">
-                <a class="nav-link" href="/users/login">Login</a>
-            </li>
-            {{!-- {{#else}} --}}
+            {{#if isLoggedIn}}
             <li class="nav-item">
                 <a class="nav-link" id="logout" href="#" tabindex="-1" aria-disabled="true">Logout</a>
             </li>
-            {{!-- {{/if}} --}}
+            {{else}}
+            <li class="nav-item">
+                <a class="nav-link" href="/users/login">Login</a>
+            </li>
+            {{/if}}
+            
+            
+            
             </ul>
         </div>
     </nav>
 
     {{{ body }}}
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="/assets/js/index.js"></script>
+    
+
 </body>
 </html>
