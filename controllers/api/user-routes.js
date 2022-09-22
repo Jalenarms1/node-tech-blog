@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User } = require("../../models/User");
+const { User, Blog } = require("../../models");
 const bcrypt = require("bcrypt");
 
 
@@ -8,6 +8,21 @@ router.get('/login', (req, res) => {
         isLoggedIn: req.session.isLoggedIn,
 
     });
+})
+
+// gets all users and their blog posts that they have made
+router.get('/', async (req,res) => {
+    try{
+        let allUsers = await User.findAll({
+            include: [{model: Blog}]
+        })
+
+        if(allUsers){
+            res.json(allUsers)
+        }
+    }catch (err){
+        res.status(500).json(err)
+    }
 })
 
 router.post("/login", async (req, res) => {
@@ -32,6 +47,7 @@ router.post("/login", async (req, res) => {
 
         req.session.save(() => {
             req.session.isLoggedIn = true;
+            // req.session.username = currentUser.username;
 
 
             console.log("User logged in");
@@ -52,6 +68,8 @@ router.post("/new", async (req, res) => {
 
         req.session.save(() => {
             req.session.isLoggedIn = true;
+            // req.session.username = newUser.username;
+
 
             res.json(newUser)
 
@@ -70,7 +88,7 @@ router.get("/new", (req, res) => {
     });
 })
 
-//  in progress
+// logs the current user out of their account 
 router.post("/logout", (req, res) => {
     if(req.session.isLoggedIn){
         req.session.destroy(() => {

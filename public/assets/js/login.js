@@ -1,4 +1,4 @@
-var username = document.querySelector("#new-username-input");
+var user = document.querySelector("#new-username-input");
 var email = document.querySelector("#new-email-input");
 var password = document.querySelector("#new-password-input")
 var submitBtn = document.querySelector("#signup-btn");
@@ -12,7 +12,7 @@ var logout = document.querySelector("#logout");
 const createNewUser = async (e) => {
     e.preventDefault();
     let userBody = {
-        username: username.value,
+        username: user.value,
         email: email.value,
         password: password.value
     }
@@ -20,11 +20,11 @@ const createNewUser = async (e) => {
     const response = await fetch("/users/new", {
         method: 'POST',
         body: JSON.stringify(userBody),
-        headers: { "Content-type": "application/json"}
+        headers: { "Content-Type": "application/json"}
     })
 
     if(response.ok){
-        document.location.replace("/blogs")
+        document.location.replace("/")
 
     }
 }
@@ -42,7 +42,7 @@ const loginPost = async (event) => {
     })
 
     if(response.ok){
-        document.location.replace("/blogs")
+        document.location.replace("/")
     }
 }
 
@@ -54,7 +54,7 @@ const loggedOut = async () => {
     })
 
     if(response.ok){
-        window.location.replace("/blogs")
+        window.location.replace("/")
     }
 }
 

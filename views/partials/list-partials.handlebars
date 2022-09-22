@@ -1,16 +1,21 @@
+
 <div class="stretch">
     <ul id="post-list" class="mt-2 rem-bullets">
-        {{!-- {{#each blogs as |blog|}} --}}
         <li class="w-100 blog-item mt-4">
-            <div class="w-100 card">
-                <h5 class="card-header">Featured</h5>
+            <div class="w-100 card bg-light">
+                <h5 class="card-header p-2">{{title}}</h5>
+                <small class="text-muted p-1 pl-2">Posted on: {{ format_date createdAt}}</small>
                 <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <h5 class="card-title border-bottom">{{user.username}}</h5>
+                    <p class="card-text p-1">{{content}}</p>
                     <input type="text" class="comment-box" placeholder="Leave a comment...">
-                    <button class="btn cust-btn btn-light">Save</button>
+                    <button id="comment-btn" class="btn cust-btn btn-dark">Save</button>
                 </div>
             </div>
+            <ul id="comments">
+
+            </ul>
+
         </li>
     </ul>
 </div>
