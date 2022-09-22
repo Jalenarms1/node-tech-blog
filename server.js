@@ -14,6 +14,7 @@ const helpers = require('./utils/helpers');
 const hbs = exphb.create({helpers});
 
 
+
 const options = {
     secret: 'Super secret secret',
     cookie: {},
