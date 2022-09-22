@@ -20,12 +20,14 @@ router.post("/login", async (req, res) => {
         })
         if(!currentUser){
             res.status(404).json({errMsg: "Invalid user"})
+            return
         }
 
         let validPassword = await currentUser.authPassword(req.body.password);
 
         if(!validPassword){
             res.status(404).json({errMsg: "Invalid information"})
+            return
         }
 
         req.session.save(() => {
