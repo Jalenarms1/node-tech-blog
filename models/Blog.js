@@ -20,7 +20,7 @@ Blog.init(
             type: DataTypes.STRING,
             allowNull: false
         },
-        bloggerId: {
+        blogger_id: {
             type: DataTypes.INTEGER,
             references: {
                 model: 'user',
@@ -33,10 +33,8 @@ Blog.init(
         timestamps: true,
         freezeTableName: true,
         underscored: true,
-        model: 'blogs'
+        modelName: 'blog'
     }
 )
 
-module.exports = {
-    Blog
-};
+module.exports = Blog;

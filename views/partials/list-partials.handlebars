@@ -11,10 +11,22 @@
                     <input type="text" class="comment-box" placeholder="Leave a comment...">
                     <button id="comment-btn" class="btn cust-btn btn-dark">Save</button>
                 </div>
-            </div>
-            <ul id="comments">
 
-            </ul>
+                {{#if comment}}
+                {{#each comment as |comment|}}
+                <div class="list-group" id="comments">
+                    <div href="#" class="list-group-item list-group-item-action active">
+                        <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1"{{comment}}</h5>
+                        <small>3 days ago</small>
+                        </div>
+                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                    </div>
+                
+                </div>
+                {{/if}}
+            </div>
+            
 
         </li>
     </ul>

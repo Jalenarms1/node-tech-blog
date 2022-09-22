@@ -12,7 +12,7 @@ Comment.init(
             allowNull: false,
             autoIncrement: true
         },
-        userId: {
+        user_id: {
             type: DataTypes.INTEGER,
             references: {
                 model: 'user',
@@ -24,7 +24,7 @@ Comment.init(
             allowNull: false,
 
         },
-        blogId: {
+        blog_id: {
             type: DataTypes.INTEGER,
             references: {
                 model: 'blog',
@@ -37,10 +37,8 @@ Comment.init(
         timestamps: true,
         freezeTableName: true,
         underscored: true,
-        model: 'comments'
+        modelName: 'comment'
     }
 )
 
-module.exports = {
-    Comment
-};
+module.exports = Comment;
