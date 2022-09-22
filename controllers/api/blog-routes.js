@@ -5,22 +5,22 @@ const bcrypt = require("bcrypt");
 router.get("/", async (req, res) => {
     try{
         let allBlogs = await Blog.findAll({
-            include: [{model: Comment, include: [{model: User, attributes: ['username']}]}, {model: User}]
+            include: [{model: User}, {model: Comment, include: [{model: User, attributes: ['username']}]}]
         })
 
         const blogs = allBlogs.map(item => {
             return item.get({plain: true})
         })
+        console.log(blogs);
+        
 
-        console.log((blogs));
+        // res.json(blogs)
 
-        res.json(blogs)
-
-        // res.render("homepage", {
-        //     isLoggedIn: req.session.isLoggedIn,
-        //     blogs
+        res.render("homepage", {
+            isLoggedIn: req.session.isLoggedIn,
+            blogs,
     
-        // });
+        });
 
     } catch(err){
         console.log(err);
@@ -58,11 +58,11 @@ router.post("/comments/:id", async (req, res) => {
             res.status(400).json({errMsg: 'Error adding comment'})
             return 
         }
-        res.json(newComment)
+        // res.json(newComment)
 
-        // res.render("homepage", {
-        //     isLoggedIn: req.session.isLoggedIn
-        // })
+        res.render("homepage", {
+            isLoggedIn: req.session.isLoggedIn
+        })
 
 
 

@@ -12,19 +12,23 @@
                     <button id="comment-btn" class="btn cust-btn btn-dark">Save</button>
                 </div>
 
-                {{#if comment}}
-                {{#each comment as |comment|}}
-                <div class="list-group" id="comments">
+                
+                {{#if comments}}
+                {{#each comments as |comment|}}
+                <div class="list-group ml-3 mr-3 pb-2 " id="comments">
                     <div href="#" class="list-group-item list-group-item-action active">
                         <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1"{{comment}}</h5>
+                        <small class="mb-1">{{comment.user.username}}</small>
                         <small>3 days ago</small>
                         </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        <p class="mb-1">{{comment.content}}</p>
                     </div>
                 
                 </div>
+                {{/each}}
                 {{/if}}
+               
+                
             </div>
             
 
