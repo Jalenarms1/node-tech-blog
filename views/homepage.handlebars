@@ -6,10 +6,36 @@
   <a class="btn btn-primary btn-lg" href="/users/new" role="button">Get started</a>
 </div>
 
+{{#if isLoggedIn}}
+<div class="stretch border rounded p-3 border-dark my-3">
+    <div class="post-heading my-2">
+        <h3>Contribute!</h3>
+        <small>Tell about an experience you've had with any new-to-you technology lately.</small>
+    </div>
+    <div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Title</span>
+    </div>
+    <input type="text" id="blog-title" class="form-control" aria-label="Amount (to the nearest dollar)">
+    
+    </div>
+
+    <div class="input-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Body</span>
+    </div>
+    <textarea class="form-control" id="blog-body" aria-label="With textarea"></textarea>
+    </div>
+    <br>
+    <button id="post-blog" class="btn bg-primary text-white px-5">Post</button>
+    
+</div>
+{{/if}}
+
 {{#each blogs as |blog|}}
 {{> list-partials}}
 {{/each}}
 
-
+<script src="/assets/js/index.js"></script>
 
 

@@ -5,7 +5,9 @@ const bcrypt = require("bcrypt");
 
 router.get('/login', (req, res) => {
     res.render("login", {
-        isLoggedIn: req.session.isLoggedIn,
+        isLoggedIn: req.session.isLoggedIn
+        
+
 
     });
 })
@@ -47,16 +49,20 @@ router.post("/login", async (req, res) => {
 
         req.session.save(() => {
             req.session.isLoggedIn = true;
-            // req.session.username = currentUser.username;
-
+            req.session.user_id = currentUser.id;
 
             console.log("User logged in");
             res.render("homepage", {
                 isLoggedIn: req.session.isLoggedIn,
+                session_user: req.session.user_id
+
             });
+
+            console.log(req.session.user_id);
             
         })
     } catch (err) {
+        console.log(err);
         res.status(500).json(err)
     }
 })
@@ -68,10 +74,18 @@ router.post("/new", async (req, res) => {
 
         req.session.save(() => {
             req.session.isLoggedIn = true;
-            // req.session.username = newUser.username;
+            req.session.user_id = newUser.id;
 
 
-            res.json(newUser)
+
+            res.render("homepage", {
+                isLoggedIn: req.session.isLoggedIn,
+                session_user: req.session.user_id
+
+
+
+
+            });
 
         })
         
@@ -83,7 +97,7 @@ router.post("/new", async (req, res) => {
 
 router.get("/new", (req, res) => {
     res.render("signup", {
-        isLoggedIn: req.session.isLoggedIn,
+        isLoggedIn: req.session.isLoggedIn
 
     });
 })
@@ -92,6 +106,7 @@ router.get("/new", (req, res) => {
 router.post("/logout", (req, res) => {
     if(req.session.isLoggedIn){
         req.session.destroy(() => {
+            console.log("logged out");
             res.status(204).end()
         })
     }

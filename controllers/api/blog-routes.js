@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { User, Blog, Comment } = require("../../models");
 const bcrypt = require("bcrypt");
+const { checkAuth } = require("../../utils/helpers");
 
 router.get("/", async (req, res) => {
     try{
@@ -19,6 +20,9 @@ router.get("/", async (req, res) => {
         res.render("homepage", {
             isLoggedIn: req.session.isLoggedIn,
             blogs,
+            // session_user: req.session.user_id
+
+            
     
         });
 
@@ -28,17 +32,23 @@ router.get("/", async (req, res) => {
     }
 })
 
-router.post("/blogs/new/:id", async (req, res) => {
+router.post("/blogs/new", async (req, res) => {
     try{
         let newBlog = await Blog.create({
             title: req.body.title,
             content: req.body.content,
-            blogger_id: req.params.id
+            blogger_id: req.session.user_id
         })
+
+        console.log(newBlog);
 
         if(newBlog){
             res.render("homepage", {
-                isLoggedIn: req.session.isLoggedIn
+                isLoggedIn: req.session.isLoggedIn,
+                // session_user: req.session.user_id
+
+                
+
             })
         }
     }catch (err){
@@ -46,12 +56,12 @@ router.post("/blogs/new/:id", async (req, res) => {
     }
 })
 
-router.post("/comments/:id", async (req, res) => {
+router.post("/comments/:blogId", checkAuth, async (req, res) => {
     try{
         let newComment = await Comment.create({
-            user_id: req.params.id,
+            user_id: req.session.user_id,
             content: req.body.content,
-            blog_id: req.body.blog_id
+            blog_id: req.params.blogId
         })
 
         if(!newComment){
@@ -61,7 +71,10 @@ router.post("/comments/:id", async (req, res) => {
         // res.json(newComment)
 
         res.render("homepage", {
-            isLoggedIn: req.session.isLoggedIn
+            isLoggedIn: req.session.isLoggedIn,
+            // session_user: req.session.user_id
+
+            
         })
 
 
@@ -85,5 +98,7 @@ router.get("/comments", async (req, res) => {
         res.status(500).json(err)
     }
 })
+
+
 
 module.exports = router;
