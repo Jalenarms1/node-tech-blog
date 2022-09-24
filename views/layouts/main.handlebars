@@ -32,16 +32,21 @@
                 <a class="nav-link" href="/users/login">Login</a>
             </li>
             {{/if}}
-        
             
             
             </ul>
+            {{#if currUser}}
+            <input type="hidden" id="currUser-id" value="{{session_user}}">
+            <h3 class="justify-item-end">{{currUser}}</h3>
+            
+            {{/if}}
         </div>
     </nav>
 
     {{{ body }}}
 
-
+    
+    <script src="/assets/js/login.js"></script>
     
 
 </body>

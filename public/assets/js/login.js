@@ -6,7 +6,8 @@ var loginBtn = document.querySelector("#login");
 var checkUsername = document.querySelector("#cur-user-input");
 var checkPassword = document.querySelector("#cur-password-input");
 var logout = document.querySelector("#logout");
-
+var wrongUser = document.querySelector("#err-user");
+var wrongPass = document.querySelector("#err-pass");
 
 
 const createNewUser = async (e) => {
@@ -31,18 +32,36 @@ const createNewUser = async (e) => {
 
 const loginPost = async (event) => {
     event.preventDefault();
+    try{
 
-    const response = await fetch("/users/login", {
-        method: 'POST',
-        body: JSON.stringify({
-            username: checkUsername.value,
-            password: checkPassword.value
-        }),
-        headers: { "Content-Type": 'application/json'}
-    })
+        const response = await fetch("/users/login", {
+            method: 'POST',
+            body: JSON.stringify({
+                username: checkUsername.value,
+                password: checkPassword.value
+            }),
+            headers: { "Content-Type": 'application/json'}
+        })
+    
+        if(response.ok){
+            document.location.replace("/")
+        } else if (response.status === 404){
+            checkUsername.setAttribute("style", "border: 2px solid red");
+            wrongUser.classList.remove("hide");
+            checkPassword.removeAttribute("style");
+            wrongPass.classList.add("hide");
 
-    if(response.ok){
-        document.location.replace("/")
+
+        }else if (response.status === 400){
+            checkPassword.setAttribute("style", "border: 2px solid red");
+            wrongPass.classList.remove("hide");
+            checkUsername.removeAttribute("style");
+            wrongUser.classList.add("hide");
+        } 
+
+    }catch(err){
+        console.log("Invalid");
+        console.log(err);
     }
 }
 

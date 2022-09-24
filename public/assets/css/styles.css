@@ -27,3 +27,15 @@
 .cust-btn{
     width: 25%;
 }
+
+.hide{
+    display: none;
+}
+.contain-user{
+    width: 90%;
+    margin: 0 auto;
+}
+.cust-flex-list{
+    display: flex;
+    flex-wrap: wrap;
+}

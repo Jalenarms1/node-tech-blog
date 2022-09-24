@@ -8,9 +8,10 @@
                 <div class="card-body">
                     <h5 class="card-title border-bottom">{{user.username}}</h5>
                     <p class="card-text p-1">{{content}}</p>
-                    <input type="text" id="comment-input" class="comment-box" placeholder="Leave a comment...">
-                    <button id="comment-btn" class="btn cust-btn btn-dark">Reply</button>
-                    <input type="hidden" value="{{id}}">
+                    
+                    <input type="text" class="comment-box comment-input" placeholder="Leave a comment...">
+                    <button class="btn cust-btn btn-dark comment-btn">Reply</button>
+                    <input type="hidden" class="blog-id" value="{{id}}">
                     
                     
                     
@@ -26,6 +27,9 @@
                         <small>{{ format_date comment.createdAt}}</small>
                         </div>
                         <p class="mb-1">{{comment.content}}</p>
+                        <input type="hidden" class="com-userId" value="{{comment.user_id}}">
+                        <button class="btn-danger del-com">🗑</button>
+                        <input type="hidden" id="com-id" value="{{comment.id}}">
                     </div>
                 
                 </div>

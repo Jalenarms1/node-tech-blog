@@ -1,14 +1,15 @@
 const router = require("express").Router();
 const { User, Blog } = require("../../models");
 const bcrypt = require("bcrypt");
+let currentLoggedIn;
+
 
 
 router.get('/login', (req, res) => {
     res.render("login", {
-        isLoggedIn: req.session.isLoggedIn
-        
-
-
+        isLoggedIn: req.session.isLoggedIn,
+        currUser: req.session.user,
+        session_user: req.session.user_id
     });
 })
 
@@ -43,18 +44,26 @@ router.post("/login", async (req, res) => {
         let validPassword = await currentUser.authPassword(req.body.password);
 
         if(!validPassword){
-            res.status(404).json({errMsg: "Invalid information"})
+            res.status(400).json({errMsg: "Invalid information"})
             return
         }
 
-        req.session.save(() => {
-            req.session.isLoggedIn = true;
-            req.session.user_id = currentUser.id;
+        
 
+
+        req.session.save(() => {
+            req.session.user_id = currentUser.id;
+            req.session.isLoggedIn = true;
+            req.session.user = currentUser.username;
+
+            
+            console.log(currentLoggedIn);
             console.log("User logged in");
             res.render("homepage", {
                 isLoggedIn: req.session.isLoggedIn,
-                session_user: req.session.user_id
+                session_user: req.session.user_id,
+                currUser: req.session.user
+
 
             });
 
@@ -72,15 +81,21 @@ router.post("/new", async (req, res) => {
     try{
         let newUser = await User.create(req.body)
 
+        
+
         req.session.save(() => {
             req.session.isLoggedIn = true;
+            req.session.user = newUser.username
             req.session.user_id = newUser.id;
 
+           
 
 
             res.render("homepage", {
                 isLoggedIn: req.session.isLoggedIn,
-                session_user: req.session.user_id
+                session_user: req.session.user_id,
+                currUser: req.session.user
+
 
 
 
@@ -97,7 +112,11 @@ router.post("/new", async (req, res) => {
 
 router.get("/new", (req, res) => {
     res.render("signup", {
-        isLoggedIn: req.session.isLoggedIn
+        isLoggedIn: req.session.isLoggedIn,
+        currUser: req.session.user,
+        session_user: req.session.user_id,
+
+
 
     });
 })

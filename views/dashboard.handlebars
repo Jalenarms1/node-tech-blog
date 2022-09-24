@@ -1,1 +1,10 @@
-<h1>Hello, this worked</h1>
+<div class="contain-user">
+    <h1 class="user-name my-5">Welcome, {{userBlogs.username}}!</h1>
+
+    <ul class="list-group cust-flex-list">
+        {{#each userBlogs.blogs as |userBlog|}}
+        {{> user-list}}
+        {{/each}}
+    </ul>
+
+</div>

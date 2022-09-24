@@ -6,15 +6,17 @@
         <div class="form-group">
             <label for="cur-user-input">Username</label>
             <input type="text" class="form-control" id="cur-user-input" aria-describedby="emailHelp">
+            <small id="err-user" style="color: red;" class="hide">Please enter a valid username</small>
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
             <input type="password" class="form-control" id="cur-password-input">
+            <small id="err-pass" style="color: red;" class="hide">Invalid password</small>
         </div>
         <button id="login" class="btn btn-primary">Login</button>
-        <a href="/signup"><small>Don't have an account?</small></a>
+        <a href="/users/new"><small>Don't have an account?</small></a>
     </form>
+
 
 </div>
 
-<script src="/assets/js/login.js"></script>

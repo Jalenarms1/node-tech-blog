@@ -20,10 +20,11 @@ router.get("/", async (req, res) => {
         res.render("homepage", {
             isLoggedIn: req.session.isLoggedIn,
             blogs,
-            // session_user: req.session.user_id
+            currUser: req.session.user,
+            session_user: req.session.user_id,
 
-            
-    
+
+
         });
 
     } catch(err){
@@ -45,9 +46,9 @@ router.post("/blogs/new", async (req, res) => {
         if(newBlog){
             res.render("homepage", {
                 isLoggedIn: req.session.isLoggedIn,
-                // session_user: req.session.user_id
+                currUser: req.session.user
 
-                
+                // session_user: req.session.user_id
 
             })
         }
@@ -64,14 +65,21 @@ router.post("/comments/:blogId", checkAuth, async (req, res) => {
             blog_id: req.params.blogId
         })
 
+        console.log(req.params.blogId);
+        
         if(!newComment){
             res.status(400).json({errMsg: 'Error adding comment'})
             return 
         }
         // res.json(newComment)
+        console.log(newComment);
 
         res.render("homepage", {
             isLoggedIn: req.session.isLoggedIn,
+            currUser: req.session.user,
+            session_user: req.session.user_id,
+
+
             // session_user: req.session.user_id
 
             
@@ -96,6 +104,24 @@ router.get("/comments", async (req, res) => {
         }
     } catch (err){
         res.status(500).json(err)
+    }
+})
+
+router.delete("/delcom/:id", async (req, res) => {
+    try{
+        let deletedCom = await Comment.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        res.json(deletedCom)
+        // res.status(200)
+
+        console.log(deletedCom);
+
+    }catch (err){
+        console.log(err);
+        res.json(err)
     }
 })
 
