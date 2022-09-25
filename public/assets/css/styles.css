@@ -39,3 +39,11 @@
     display: flex;
     flex-wrap: wrap;
 }
+.del-blog{
+    cursor: pointer;
+    padding: 10px;
+}
+.flex-box{
+    display: flex;
+    justify-content: space-between;
+}

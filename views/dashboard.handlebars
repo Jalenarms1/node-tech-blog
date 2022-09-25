@@ -1,10 +1,14 @@
 <div class="contain-user">
     <h1 class="user-name my-5">Welcome, {{userBlogs.username}}!</h1>
 
+    {{#if userBlogs}}
     <ul class="list-group cust-flex-list">
         {{#each userBlogs.blogs as |userBlog|}}
         {{> user-list}}
         {{/each}}
     </ul>
+    {{/if}}
 
 </div>
+
+<script src="assets/js/index.js"></script>

@@ -3,8 +3,17 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title py-2">{{title}}</h5>
+
             <h6 class="card-subtitle mb-2 text-muted">{{content}}</h6>
+
             <p class="card-text">{{format_date createdAt}}</p>
+
+            <div class="icons">
+
+                <i id="del-blog" class="fa del-blog fa-window-close"></i>
+                <input type="hidden" class="user-blog-id" value="{{id}}">
+
+            </div>
         </div>
     </div>
 </li>

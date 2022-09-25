@@ -8,6 +8,8 @@ const commentInput = document.querySelectorAll(".comment-input");
 const delCommentBtn = document.querySelectorAll(".del-com");
 const commentUser = document.querySelectorAll(".com-userId");
 const currId = document.querySelector("#currUser-id");
+const delBlogBtn = document.querySelectorAll(".del-blog");
+const userBlog = document.querySelectorAll(".user-blog-id");
 let commentIds;
 
 
@@ -74,6 +76,25 @@ const delComments = async (e) => {
     }
 }
 
+const delUserBlog = async (e) => {
+    try{
+        console.log(e);
+        console.log(e.target.nextElementSibling);
+        console.log(e.target.nextElementSibling.value);
+
+        let response = await fetch(`/dashboard/rid/${e.target.nextElementSibling.value}`, {
+            method: 'DELETE',
+            body: {}
+        })
+
+        if(response.ok){
+            location.replace("/dashboard")
+        }
+    } catch (err){
+        console.log(err);
+    }
+}
+
 if(postBlogBtn){
     postBlogBtn.addEventListener("click", saveBlog);
 }
@@ -95,5 +116,11 @@ if(delCommentBtn){
         })
         button.addEventListener("click", delComments);
         
+    })
+}
+
+if(delBlogBtn){
+    delBlogBtn.forEach(button => {
+        button.addEventListener("click", delUserBlog)
     })
 }

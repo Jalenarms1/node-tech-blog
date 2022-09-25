@@ -31,4 +31,19 @@ router.get('/', checkAuth, async (req, res) => {
     }
 })
 
+router.delete("/rid/:id", async (req, res) => {
+    try{
+        let deletedUserBlog = await Blog.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+
+        res.json(deletedUserBlog);
+    } catch(err){
+        console.log(err);
+        res.json(err)
+    }
+})
+
 module.exports = router;
