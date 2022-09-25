@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { User, Blog } = require("../../models");
 const bcrypt = require("bcrypt");
+const { currLogginCheck } = require("../../utils/helpers");
 let currentLoggedIn;
 
 
@@ -55,6 +56,7 @@ router.post("/login", async (req, res) => {
             req.session.user_id = currentUser.id;
             req.session.isLoggedIn = true;
             req.session.user = currentUser.username;
+            req.session.isLoggedOut = false;
 
             
             console.log(currentLoggedIn);
@@ -62,7 +64,9 @@ router.post("/login", async (req, res) => {
             res.render("homepage", {
                 isLoggedIn: req.session.isLoggedIn,
                 session_user: req.session.user_id,
-                currUser: req.session.user
+                currUser: req.session.user,
+                isLoggedOut: req.session.loggedOut
+
 
 
             });
@@ -87,6 +91,7 @@ router.post("/new", async (req, res) => {
             req.session.isLoggedIn = true;
             req.session.user = newUser.username
             req.session.user_id = newUser.id;
+            req.session.loggedOut = false;
 
            
 
@@ -94,7 +99,8 @@ router.post("/new", async (req, res) => {
             res.render("homepage", {
                 isLoggedIn: req.session.isLoggedIn,
                 session_user: req.session.user_id,
-                currUser: req.session.user
+                currUser: req.session.user,
+                isLoggedOut: req.session.loggedOut
 
 
 
@@ -110,11 +116,13 @@ router.post("/new", async (req, res) => {
     }
 })
 
-router.get("/new", (req, res) => {
+router.get("/new", currLogginCheck, async (req, res) => {
     res.render("signup", {
         isLoggedIn: req.session.isLoggedIn,
         currUser: req.session.user,
         session_user: req.session.user_id,
+        isLoggedOut: req.session.loggedOut
+
 
 
 

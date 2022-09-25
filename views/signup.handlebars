@@ -1,22 +1,29 @@
 <div class="stretch">
+    {{#unless isLoggedIn}}
     <form>
         <div class="form-group">
-            <label for="new-email-input">Email address</label>
+            <label for="new-email-input" aria-required="true">Email address</label>
             <input type="email" id="new-email-input" class="form-control" aria-describedby="emailHelp">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
-            <label for="new-username-input">Username</label>
+            <label for="new-username-input" aria-required="true">Username</label>
             <input type="text" id="new-username-input" class="form-control">
         </div>
         <div class="form-group">
-            <label class="" for="new-password-input">Password</label>
+            <label class="" for="new-password-input" aria-required="true">Password</label>
 
             <input type="text" id="new-password-input" class="form-control">
         </div>
         <button type="submit" id="signup-btn" class="btn btn-primary">Submit</button>
         <a href="/users/login"><small class="text-muted">Already have an account?</small></a>
     </form>
+    {{/unless}}
+    {{#if isLoggedIn}}
+    <h2>Please logout to create new account.</h2>
+    {{/if}}
+    
+
 </div>   
 
 

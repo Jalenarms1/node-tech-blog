@@ -3,7 +3,9 @@
   <p class="lead">Create a blog post about any experience you've had with the latest technology.</p>
   <hr class="my-4">
   <p>Communication is education</p>
+  {{#unless isLoggedIn}}
   <a class="btn btn-primary btn-lg" href="/users/new" role="button">Get started</a>
+  {{/unless}}
 </div>
 
 {{#if isLoggedIn}}
