@@ -1,4 +1,3 @@
-
 <div class="stretch">
     <ul id="post-list" class="mt-2 rem-bullets">
         <li class="w-100 blog-item mt-4">
@@ -8,15 +7,10 @@
                 <div class="card-body">
                     <h5 class="card-title border-bottom">{{user.username}}</h5>
                     <p class="card-text p-1">{{content}}</p>
-                    
                     <input type="text" class="comment-box comment-input" placeholder="Leave a comment...">
                     <button class="btn cust-btn btn-dark comment-btn">Reply</button>
                     <input type="hidden" class="blog-id" value="{{id}}">
-                    
-                    
-                    
                 </div>
-
                 
                 {{#if comments}}
                 {{#each comments as |comment|}}
