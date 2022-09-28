@@ -24,6 +24,13 @@ const createNewUser = async (e) => {
         headers: { "Content-Type": "application/json"}
     })
 
+    if(response.status === 500){
+        console.log("Please make sure you do not have an account with this email address or username already.");
+        user.style.border = "2px solid red";
+        email.style.border = "2px solid red";
+
+    }
+
     if(response.ok){
         document.location.replace("/")
 

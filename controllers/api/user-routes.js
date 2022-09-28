@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { User, Blog } = require("../../models");
 const bcrypt = require("bcrypt");
-const { currLogginCheck } = require("../../utils/helpers");
+const { currLogginCheck, checkDuplicateEmail } = require("../../utils/helpers");
 let currentLoggedIn;
 
 

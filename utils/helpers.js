@@ -1,3 +1,5 @@
+const { User } = require("../models");
+
 module.exports = {
     currLogginCheck: (req, res, next) => {
         if(req.session.isLoggedIn) {
@@ -26,6 +28,7 @@ module.exports = {
             return 
         } 
         next();
-    },
+    }
+    
     
 }
